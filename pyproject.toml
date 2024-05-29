@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "sparse-agg-pyspark"
+version = "0.1.0"
+description = ""
+authors = ["Andrew Wong <wongwong.wong@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pyspark = {extras = ["pandas-on-spark"], version = "^3.5.1"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

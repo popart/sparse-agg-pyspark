@@ -12,6 +12,7 @@ pandas <2.0.0
 
 ## Setup
 poetry install --with dev
+poetry run python src/report.py
 poetry run pytest
 
 ## Notes
@@ -34,13 +35,12 @@ We need some structure where we can merge 2 users together, and then keep mergin
 
 I think we can calculate the deltas for each day. The deltas all sum up together for that day. And then if you have the total deltas for each day it's easy to iterate over them to get the daily totals.
 
-Hmm, but the held values are supposed to be 0 when there's no data measurement. The total held is just the same of the held for each day. The total inferred is the sum of the inferred for that day. Don't actually need to calculate daily deltas.
+Hmm, but the held values are supposed to be 0 when there's no data measurement. The total held is just the sum of the held for each day. The total inferred is also the sum of the inferred for that day. Don't actually need to calculate daily deltas.
 
 All that needs calculating is the inferred values. You can just:
 - copy the held values to a new col
 - forward fill the null values for each row
 - subtract the held values.
-
 
 raw -> filter-by-ticker -> split-by-user-id -> map-fill-inferred-qty -> reduce-sum-cols
 

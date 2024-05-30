@@ -34,6 +34,7 @@ def ffill_per_user(rdd: RDD, start_date: date, end_date: date) -> RDD:
             res = []
             current_date = start_date
             inferred_qty = 0
+            start = False
             while (current_date <= end_date):
                 if user_data and user_data[0][0] == current_date:
                     res.append((
@@ -43,12 +44,14 @@ def ffill_per_user(rdd: RDD, start_date: date, end_date: date) -> RDD:
                     ))
                     inferred_qty = user_data[0][1]
                     user_data.pop(0)
+                    start = True
                 else:
-                    res.append((
-                        current_date,    # date
-                        0,               # qty
-                        inferred_qty,
-                    ))
+                    if start:
+                        res.append((
+                            current_date,    # date
+                            0,               # qty
+                            inferred_qty,
+                        ))
                 current_date += timedelta(days=1)
             return (user_id, res)
         return ffill
